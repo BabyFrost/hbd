@@ -1,0 +1,34 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="inputID">Staff ID : </label>
+            <input class="form-control" (change)="displayStaff($event)" placeholder="Staff ID" formControlName="id">
+        </div>
+        <div class="form-group">
+            <label for="inputName">Name : </label>
+            <input [readonly]="staffExist" class="form-control" placeholder="Name" formControlName="name">
+        </div>
+        <div class="form-group">
+            <label for="inputEmail">Email : </label>
+            <input [readonly]="staffExist" class="form-control" placeholder="Email" formControlName="email">
+        </div>
+        <div class="form-group">
+            <label for="inputPhoto">Photo : </label>
+            <input type="file" (change)="uploadFile($event)">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-danger btn-block btn-lg">Save</button>
+        </div>
+
+        <!-- <div *ngIf="form.get('id')?.touched">
+            Text Text Text Text Text
+        </div> -->
+
+        <!-- <div *ngIf="form.get('id')?.touched"> -->
+        <div *ngIf="staffExist">
+            <img class="profil-photo" [src]="photoUrl">
+        </div>
+
+    </form>
+</div>
+

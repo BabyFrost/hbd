@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="alert alert-success" role="alert" [hidden]="!successAlert">
+        <a href="#" style=" text-decoration: none; float: right; font-size: 21px; font-weight: 700; line-height: 1; 
+           color: #000; text-shadow: 0 1px 0 rgb(190, 63, 63); filter: alpha(opacity=20); 
+           opacity: .2;" data-dismiss="alert" aria-label="close" (click)="switchOffAlert()"  >&times;</a>
+        Photo Updated Succesfully
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="inputPhoto">Photo : </label>
+            <input type="file" (change)="uploadFile($event)">
+            <div class="alert" *ngIf="submitted && form.get('photo')!.errors?.['required']">
+                Please image must be a JPEG
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button [disabled]="form.get('photo')!.errors?.['required']">Upload</button>
+        </div>
+        <div *ngIf="staffExist">
+            <img class="profil-photo" [src]="photoUrl">
+        </div>
+
+    </form>
+</div>
+
