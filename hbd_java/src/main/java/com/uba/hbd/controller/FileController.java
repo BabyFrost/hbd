@@ -49,10 +49,11 @@ public class FileController {
 	 * .collect(Collectors.toList()); }
 	 */
 
-    @GetMapping("/staffPhotos/{staffId}/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String staffId, @PathVariable String fileName, HttpServletRequest request) {
+    //@GetMapping("/staffPhotos/{staffId}/{fileName:.+}")
+    @GetMapping("/staffPhotos/{staffId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String staffId, HttpServletRequest request) {
         // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(staffId+"/"+fileName);
+        Resource resource = fileStorageService.loadFileAsResource(staffId);
 
         // Try to determine file's content type
         String contentType = null;

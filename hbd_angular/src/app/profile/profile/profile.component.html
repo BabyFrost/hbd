@@ -1,22 +1,65 @@
 <div class="container">
+
+    <div class="alert alert-danger" role="alert" *ngIf="errorAlert">
+        <a href="#" style=" text-decoration: none; float: right; font-size: 21px; font-weight: 700; line-height: 1; 
+           color: #000; text-shadow: 0 1px 0 rgb(190, 63, 63); filter: alpha(opacity=20); 
+           opacity: .2;" data-dismiss="alert" aria-label="close" (click)="switchOffAlerts()"  >&times;</a>
+        <span *ngIf="serverError"> Unable to contact server </span>
+        <span *ngIf="staffIdError"> Please use only your Staff Id </span>
+    </div>
+
     <div class="alert alert-success" role="alert" [hidden]="!successAlert">
         <a href="#" style=" text-decoration: none; float: right; font-size: 21px; font-weight: 700; line-height: 1; 
            color: #000; text-shadow: 0 1px 0 rgb(190, 63, 63); filter: alpha(opacity=20); 
-           opacity: .2;" data-dismiss="alert" aria-label="close" (click)="switchOffAlert()"  >&times;</a>
+           opacity: .2;" data-dismiss="alert" aria-label="close" (click)="switchOffAlerts()"  >&times;</a>
         Photo Updated Succesfully
     </div>
 
     <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+        <div class="form-group" *ngIf="!this.isUserRegistered" >
+            <label for="inputID">Staff ID : </label>
+            <input class="form-control" placeholder="Staff ID" formControlName="id">
+            <div class="alertText" *ngIf=" form.get('id')!.touched && form.get('id')!.errors?.['required']">
+                Please Enter your StaffId
+            </div>
+        </div>
+        <div class="form-group" *ngIf="!this.isUserRegistered">
+            <label for="inputName">Name : </label>
+            <input class="form-control" placeholder="Name" formControlName="name">
+            <div class="alertText" *ngIf=" form.get('name')!.touched && form.get('name')!.errors?.['required']">
+                Please Enter your Name
+            </div>
+        </div>
+        <div class="form-group" *ngIf="!this.isUserRegistered">
+            <label for="inputName">Last Name : </label>
+            <input class="form-control" placeholder="Last Name" formControlName="lastname">
+            <div class="alertText" *ngIf=" form.get('lastname')!.touched && form.get('lastname')!.errors?.['required']">
+                Please Enter your Last Name
+            </div>
+        </div>
+        <div class="form-group" *ngIf="!this.isUserRegistered">
+            <label for="inputEmail">Email : </label>
+            <input class="form-control" placeholder="Email" formControlName="email">
+            <div class="alertText" *ngIf=" form.get('email')!.touched && form.get('email')!.errors?.['required']">
+                Please Enter your Email
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="inputPhoto">Photo : </label>
             <input type="file" (change)="uploadFile($event)">
-            <div class="alert" *ngIf="submitted && form.get('photo')!.errors?.['required']">
+            <div class="alertText" *ngIf="submitted && form.get('photo')!.errors?.['required']">
                 Please image must be a JPEG
             </div>
         </div>
 
         <div class="form-group">
-            <button [disabled]="form.get('photo')!.errors?.['required']">Upload</button>
+            <button [disabled]="form.get('id')!.errors?.['required'] ||
+                                form.get('name')!.errors?.['required'] ||
+                                form.get('lastname')!.errors?.['required'] ||
+                                form.get('email')!.errors?.['required'] ||
+                                form.get('photo')!.errors?.['required']">Upload</button>
         </div>
         <div *ngIf="staffExist">
             <img class="profil-photo" [src]="photoUrl">

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Staff } from '../model/staff';
 
 @Injectable({
@@ -18,13 +19,13 @@ export class AuthService {
 
     this.isUserLoggedIn = false;
 
-    return this.http.post<Staff>( 'http://localhost:2020/auth', formData ).pipe(tap(data => {
+    return this.http.post<Staff>( environment.backEndUrl+'/auth', formData ).pipe(tap(data => {
       this.staff = data;
       this.isUserLoggedIn = true;
       localStorage.setItem('isUserLoggedIn', "true");
       localStorage.setItem('staffId', this.staff.id);
       localStorage.setItem('staffName', this.staff.name);
-      localStorage.setItem('staffLastName', this.staff.lastName);
+      localStorage.setItem('staffLastname', this.staff.lastname);
       localStorage.setItem('staffEmail', this.staff.email);
       localStorage.setItem('staffPhotoUrl', this.staff.photoUrl);
 
@@ -38,7 +39,6 @@ export class AuthService {
   logout(): void {
     this.isUserLoggedIn = false;
     localStorage.clear();
-    //localStorage.removeItem('isUserLoggedIn'); 
   }
 
   constructor( private http: HttpClient ) { }

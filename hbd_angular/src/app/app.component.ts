@@ -12,6 +12,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'hbd';
   isUserLoggedIn = false;
+  isUserRegistered = false;
   staff!:Staff;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -23,21 +24,28 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    if ( localStorage.getItem('isUserLoggedIn') == "true" ) {
+      this.isUserRegistered = true;
+    }
     this.checkAccess();
   }
 
   checkAccess() {
     let storeData = localStorage.getItem("isUserLoggedIn");
 
-    if( storeData != null && storeData == "true") {
+    if( storeData != null && (storeData == "true" || storeData == "partially") ) {
       this.isUserLoggedIn = true;
+      if ( storeData == "true" ) {
+        this.isUserRegistered = true;
+      }
       this.staff = new Staff( localStorage.getItem("staffId")!, 
                               localStorage.getItem("staffName")!,
-                              localStorage.getItem("staffLastName")!,
+                              localStorage.getItem("staffLastname")!,
                               localStorage.getItem("staffEmail")!, 
                               localStorage.getItem("staffPhotoUrl")! );
     } else {
       this.isUserLoggedIn = false;
+      this.isUserRegistered = false;
     }
        
   }

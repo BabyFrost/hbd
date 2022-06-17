@@ -16,6 +16,10 @@
     color:red;
 } */
 
+.alertText {
+  color: red;
+}
+
 .alert {
     text-align: center;
     margin-bottom: 20px; 

@@ -5,13 +5,10 @@
      alt="UBA Logo"
      src="/assets/ubalogo/uba_logo1.jpg" 
    />
-   <!-- src="https://iconape.com/wp-content/files/oj/208058/png/208058.png" -->
-   <span *ngIf="isUserLoggedIn">Welcome<span >, {{this.staff.name.toUpperCase()}} {{this.staff.lastName.toUpperCase()}}</span></span>
 
+   <span *ngIf="isUserLoggedIn">Welcome<span *ngIf="isUserRegistered">, {{this.staff.name.toUpperCase()}} {{this.staff.lastname.toUpperCase()}}</span></span>
    <div class="spacer"></div>
    <a routerLink="/logout" class="logout" *ngIf="isUserLoggedIn" >Logout</a>
-
-   <!-- <button routerLink="/logout" *ngIf="isUserLoggedIn">Logout</button> -->
 
  </div>
  

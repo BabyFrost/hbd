@@ -7,22 +7,20 @@ import com.uba.hbd.model.Staff;
 public class StaffDTO {
 	
 	private String id;
+	private String username;
 	private String name;
+	private String lastname;
 	private String email;
 	private String photoUrl;
 	private MultipartFile photo;
 	
 	public StaffDTO() { }
 	
-	/*
-	 * public StaffDTO( String id, String name, String email, String photoUrl ) {
-	 * this.id = id; this.name = name; this.email = email; this.photoUrl = photoUrl;
-	 * }
-	 */
-	
 	public StaffDTO( Staff staff ) {
 		this.id = staff.getId();
+		this.username = staff.getUsername();
 		this.name = staff.getName();
+		this.lastname = staff.getLastname();
 		this.email = staff.getEmail();
 		this.photoUrl = staff.getPhotoUrl();
 	}
@@ -67,6 +65,22 @@ public class StaffDTO {
 		this.photo = photo;
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
 	public String toString() {
 //		return "ID: "+this.id+" Name: "+this.name+" Email: "+this.email+" File: "+photo.getName();
 		return "ID: "+this.id+" Name: "+this.name+" Email: "+this.email;

@@ -17,15 +17,13 @@ export class ProfileGuard implements CanActivate {
 
   checkLogin(url: string): true | UrlTree {
     let val: string = localStorage.getItem('isUserLoggedIn')!;
-    if(val != null && val == "true"){
+    if(val != null && ( val == "true" || val == "partially" )){
       if(url == "/login") {
-        console.log("url == login")
         return this.router.parseUrl('/profile');
-      } else { 
-        console.log("url n'est pas login")
+      } else {
         return true;
       }
-    } else {
+    } else  {
       console.log("Le user n'est pas connecte login")
       return this.router.parseUrl('/login');
     }

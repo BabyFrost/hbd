@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.uba.hbd.dto.LoginDTO;
 import com.uba.hbd.dto.StaffDTO;
-import com.uba.hbd.exception.BadRequestException;
 import com.uba.hbd.exception.ResourceConflictException;
 import com.uba.hbd.exception.ResourceNotFoundException;
 import com.uba.hbd.file.FileStorageService;
@@ -55,17 +53,23 @@ public class StaffController {
 	@PostMapping()
 	public ResponseEntity<String> saveStaff(@Valid @ModelAttribute StaffDTO staffDTO ) throws ResourceConflictException {
 		
+		
+		Staff staff = new Staff( staffDTO.getId(), staffDTO.getName(), staffDTO.getEmail(), null  );
+		staff.setUsername( staffDTO.getUsername() );
+		staff.setLastname( staffDTO.getLastname() );
+		staffService.createStaff(staff);
+		
 		String fileDownloadUri = null;
 		if ( staffDTO.getPhoto() != null ) {
 			System.out.println( "There is a file" );
 			String fileName = fileStorageService.storeFile( staffDTO.getPhoto(), staffDTO.getId());
-	        fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/staffPhotos/").path(staffDTO.getId()+"/"+fileName).toUriString();
+	        fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/staffPhotos/").path(fileName).toUriString();
 		}
 		
-		Staff staff = new Staff( staffDTO.getId(), staffDTO.getName(), staffDTO.getEmail(), fileDownloadUri );
-		staffService.createStaff(staff);
+		staff.setPhotoUrl(fileDownloadUri);
+		staffService.saveStaff(staff);
 		
-		return new ResponseEntity<>( "Staff created", HttpStatus.CREATED );
+		return new ResponseEntity<>( staff.getPhotoUrl(), HttpStatus.NO_CONTENT );
 	}
 	
 	@PatchMapping("/photo")
@@ -74,7 +78,7 @@ public class StaffController {
 		String fileDownloadUri = null;
 		if ( staffDTO.getPhoto() != null ) {
 			String fileName = fileStorageService.storeFile( staffDTO.getPhoto(), staffDTO.getId());
-	        fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/staffPhotos/").path(staffDTO.getId()+"/"+fileName).toUriString();
+	        fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/staffPhotos/").path( fileName ).toUriString();
 		}
 		
 		Staff staff = staffService.getStaffById( staffDTO.getId() );
@@ -84,21 +88,20 @@ public class StaffController {
 		return new ResponseEntity<>( staff.getPhotoUrl(), HttpStatus.NO_CONTENT );	
 	}
 	
-	@PostMapping("/auth")
-	public ResponseEntity<StaffDTO> authenticateUser( @Valid @ModelAttribute LoginDTO loginDTO ) throws ResourceConflictException, ResourceNotFoundException, BadRequestException {
-		
-		String login = loginDTO.getLogin();
-		String password = loginDTO.getPassword();
-		
-		if ( authService.authenticateUser( login, password ) ) {
-			Staff staff = staffService.getStaffById( login );
-			StaffDTO staffDTO = new StaffDTO( staff );
-			return new ResponseEntity<>( staffDTO, HttpStatus.NO_CONTENT );
-		} else {
-			throw new BadRequestException("Bad Credentials !!!");
-		}
-				
-	}
+	/*
+	 * @PostMapping("/auth") public ResponseEntity<StaffDTO>
+	 * authenticateUser( @Valid @ModelAttribute LoginDTO loginDTO ) throws
+	 * ResourceConflictException, ResourceNotFoundException, BadRequestException {
+	 * 
+	 * String login = loginDTO.getLogin(); String password = loginDTO.getPassword();
+	 * 
+	 * if ( authService.authenticateUser( login, password ) ) { Staff staff =
+	 * staffService.getStaffById( login ); StaffDTO staffDTO = new StaffDTO( staff
+	 * ); return new ResponseEntity<>( staffDTO, HttpStatus.NO_CONTENT ); } else {
+	 * throw new BadRequestException("Bad Credentials !!!"); }
+	 * 
+	 * }
+	 */
 	
 	
 }

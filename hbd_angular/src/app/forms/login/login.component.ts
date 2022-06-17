@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  userName!: string;
+  username!: string;
   password!: string;
   formGroup!: FormGroup;
   errorAlert = false;
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      userName: new FormControl("admin"),
+      username: new FormControl("admin"),
       password: new FormControl("admin"),
     });
   }
@@ -35,11 +35,11 @@ export class LoginComponent implements OnInit {
 
   onClickSubmit(data: any) {
     this.switchOffAlerts();
-    this.userName = data.userName;
+    this.username = data.username;
     this.password = data.password;
 
     var formData: any = new FormData();
-    formData.append('login', this.userName);
+    formData.append('login', this.username);
     formData.append('password', this.password);
     
     this.authService.login(formData)
@@ -59,9 +59,12 @@ export class LoginComponent implements OnInit {
               this.errorAlert = true;
               this.credentialsError = true;
               break;
-            case 404: //bad login or password
+            case 404: //User does not exist on application database
               this.errorAlert = true;
               this.credentialsError = true;
+              localStorage.setItem('staffUsername', this.username );
+              localStorage.setItem('isUserLoggedIn', "partially");
+              this.router.navigate(['/profile'])
               break;
 
           }

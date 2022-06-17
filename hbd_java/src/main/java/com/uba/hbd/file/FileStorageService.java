@@ -34,13 +34,14 @@ public class FileStorageService {
         }
     }
 
-    public String storeFile( MultipartFile file, String folder) {
+    public String storeFile( MultipartFile file, String staffId) {
         // Normalize file name
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
     	String fileExtension = originalFileName.substring( originalFileName.indexOf(".") );
-    	String fileName = "photo"+fileExtension;
+    	String fileName = staffId+fileExtension;
         
-        Path storageDir = this.fileStorageLocation.resolve(folder);
+        //Path storageDir = this.fileStorageLocation.resolve(staffId);
+    	Path storageDir = this.fileStorageLocation.resolve("");
 
         try {
             Files.createDirectories( storageDir );
@@ -58,6 +59,7 @@ public class FileStorageService {
             Path targetLocation = storageDir.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
+            System.out.println(fileName);
             return fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);

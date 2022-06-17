@@ -11,13 +11,12 @@ export class LoginGuard implements CanActivate {
 
   canActivate(next:ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
     let url: string = state.url;
-    console.log("Login Guard : Going to : "+url)
     return this.checkLogin(url);
   }
 
   checkLogin(url: string): true | UrlTree {
     let val: string = localStorage.getItem('isUserLoggedIn')!;
-    if(val != null && val == "true"){
+    if(val != null && (val == "true" || val == "partially") ){
       return this.router.parseUrl('/profile');
     } else {
       return true;

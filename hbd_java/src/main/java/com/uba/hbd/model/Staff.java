@@ -13,11 +13,14 @@ public class Staff {
 	@Column(name="ID")
 	private String id;
 	
+	@Column(name="USERNAME")
+	private String username;
+	
 	@Column(name="NAME")
 	private String name;
 	
 	@Column(name="LAST_NAME")
-	private String lastName;
+	private String lastname;
 	
 	@Column(name="EMAIL")
 	private String email;
@@ -64,6 +67,22 @@ public class Staff {
 
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	
 }
