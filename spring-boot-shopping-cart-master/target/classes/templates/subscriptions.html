@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+
+<table style="width:100%">
+			<tr>
+				<td align="left" width="50%" valign="top"><h2>Asset Disposal Platform</h2> </td>
+				<td align="right" width="30%" valign="top"> </td>
+				<td align="center" width="20%"><img src="/images/ubaLogo.jpg" th:src="@{/images/UBA-Logo.svg}" width="200" height="60"/></td>
+			</tr>
+	</table>
+
+<div th:replace="/fragments/header :: navbar"/>
+
+
+
+<div class="container">
+<p>Welcome to the Asset disposal Website. Please select the item you are interested in by clicking the shopping cart icon, then proceed to checkout.</p>
+  <p> To buy, you have to first register, by clicking on the Registration link at the top right of the page, then login.</p>
+  
+     <div th:replace="/fragments/products :: products"/>
+
+    <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"/>
+
+</div>
+
+</body>
+</html>

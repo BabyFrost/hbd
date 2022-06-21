@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+    
+     <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/>
+</head>
+
+<body>
+<table style="width:100%">
+			<tr>
+				<td align="left" width="50%" valign="top"><h2>Asset Disposal Platform</h2> </td>
+				<td align="right" width="30%" valign="top"> </td>
+				<td align="center" width="20%"><img src="/images/ubaLogo.jpg" th:src="@{/images/UBA-Logo.svg}" width="200" height="60"/></td>
+			</tr>
+	</table>
+<div th:replace="/fragments/header :: navbar"/>
+
+
+<div class="container">
+
+    <!--Show this info message only if registered successfully-->
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form autocomplete="off" action="#" th:action="@{/uploadAssetImg}"
+                  th:object="${fileDB}" method="post" role="form" enctype="multipart/form-data">
+              
+                  <div class="form-group">
+                    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{name}" placeholder="Name"
+                           class="form-control input-lg"/>
+                </div>
+                  <div class="form-group">
+                    <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{description}" placeholder="description"
+                           class="form-control input-lg"/>
+                </div>
+                 <div class="form-group">
+                    <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{price}" placeholder="price"
+                           class="form-control input-lg"/>
+                </div>
+                
+                 <div class="form-group">
+                    <label th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{quantity}" placeholder="birt date"
+                           class="form-control input-lg"/>
+                           
+                </div>
+                
+                  <div class="form-group">
+                    <label th:if="${#fields.hasErrors('solid')}" th:errors="*{solid}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{solid}" placeholder="Sol Id"
+                           class="form-control input-lg"/>
+                           
+                </div>
+                
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                           class="alert alert-danger"></label>
+                    <input type="file" th:field="*{filename}" placeholder="Staff Picture"
+                           class="form-control input-lg"/>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                        <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+<table style="width:100%">
+			<tr>
+				<td align="left" width="50%" valign="top"><h2>Asset Disposal Platform</h2> </td>
+				<td align="left" width="30%" valign="top"> </td>
+				<td align="center" width="20%"><img src="/images/ubaLogo.jpg" th:src="@{/images/UBA-Logo.svg}" width="200" height="60"/></td>
+			</tr>
+	</table>
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+    <!-- <h1 class="jumbotron">
+        <span sec:authentication="name"></span>
+    </h1> -->
+    
+      <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+      <div class="alert alert-danger" th:if="${failMessage}" th:utext="${failMessage}"></div>
+
+           
+       
+	 <table style="width:100%">
+        <tr>
+				<th align="left" width="12%" valign="top">Account Number </th>				
+				<th align="left" width="12%" valign="top">Email  </th>
+				<th align="left" width="12%" valign="top">Full name </th>
+				<th align="left" width="12%" valign="top">Staff Id </th>
+				<th align="left" width="12%" valign="top">Offer </th>
+				<th align="left" width="12%" valign="top">Product Name </th>
+				<th align="left" width="12%" valign="top"> Product ID</th>
+
+			</tr>
+			<tr th:each="bidder : ${bidders}">
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.accountNumber}"></h4> </td>				
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.email}"></h4>  </td>
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.fullName}"></h4>  </td>
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.staffId}"></h4>  </td>
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.bidOffer}"></h4>  </td>
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.productName}"></h4>  </td>
+				<td align="left" width="12%" valign="top"><h4 th:text="${bidder.productId}"></h4>  </td>
+
+			</tr>
+	</table>
+	
+	
+	<center>  </center>
+	
+                
+	
+	<br></br>
+	 
+	<a style="background-color: #f44336; color: white; padding: 15px 25px; text-align: center;  text-decoration: none; display: inline-block;" th:href="@{'/shoppingCart/bidders_excel'}"
+               sec:authorize="isAuthenticated()">  
+                Export to Excel
+            </a>
+	
+	 <div class="row">
+                        <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                         
+                        </div>
+                    </div>
+
+            
+        
+        <br></br>
+  
+
+
+</div>
+
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
