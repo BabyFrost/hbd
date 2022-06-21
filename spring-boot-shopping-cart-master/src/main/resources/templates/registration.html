@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+<table style="width:100%">
+			<tr>
+				<td align="left" width="50%" valign="top"><h2>Asset Disposal Platform</h2> </td>
+				<td align="right" width="30%" valign="top"> </td>
+				<td align="center" width="20%"><img src="/images/ubaLogo.jpg" th:src="@{/images/UBA-Logo.svg}" width="200" height="60"/></td>
+			</tr>
+	</table>
+<div th:replace="/fragments/header :: navbar"/>
+
+
+<div class="container">
+
+    <!--Show this info message only if registered successfully-->
+    <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+
+    <div class="row" style="margin-top:20px">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form autocomplete="off" action="#" th:action="@{/registration}"
+                  th:object="${user}" method="post" role="form">
+
+
+               <div class="form-group">
+                    <label th:if="${#fields.hasErrors('staffid')}" th:errors="*{staffid}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{staffid}" placeholder="Staff ID"
+                           class="form-control input-lg"/>
+                           <input type="hidden" th:field="*{id}" />
+                </div>
+                
+                 <div class="form-group">
+                    <label th:if="${#fields.hasErrors('accountnumber')}" th:errors="*{accountnumber}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{accountnumber}" placeholder="Account Number"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{name}" placeholder="Name"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{lastName}" placeholder="Last Name"
+                           class="form-control input-lg"/>
+                </div>
+               
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{email}" placeholder="Email"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                           class="alert alert-danger"></label>
+                    <input type="password" th:field="*{password}" placeholder="Password"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                           class="alert alert-danger"></label>
+                    <input type="text" th:field="*{username}" placeholder="Username"
+                           class="form-control input-lg"/>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                        <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

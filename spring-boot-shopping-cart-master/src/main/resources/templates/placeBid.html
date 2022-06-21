@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <div th:replace="/fragments/header :: header"/>
+</head>
+
+<body>
+<table style="width:100%">
+			<tr>
+				<td align="left" width="50%" valign="top"><h2>Asset Disposal Platform</h2> </td>
+				<td align="left" width="30%" valign="top"> </td>
+				<td align="center" width="20%"><img src="/images/ubaLogo.jpg" th:src="@{/images/UBA-Logo.svg}" width="200" height="60"/></td>
+			</tr>
+	</table>
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+    <!-- <h1 class="jumbotron">
+        <span sec:authentication="name"></span>
+    </h1> -->
+    
+      <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
+      <div class="alert alert-danger" th:if="${failMessage}" th:utext="${failMessage}"></div>
+
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form action="#" th:action="@{/placeBid}"
+                  th:object="${product}" method="post" role="form">
+              <table style="width:85%">
+              <tr>
+				<td align="left" width="50%" valign="top">Start Amount:  </td>
+				
+				<td align="left" width="50%" valign="top"><div th:inline="text"> [[${product.price}]] XAF</div> </td>
+
+			</tr>
+			<tr>
+				<td align="left" width="50%" valign="top">Highest Offer:  </td>
+				
+				<td align="left" width="50%" valign="top"><div th:inline="text"> [[${product.currentAmount}]] XAF</div> </td>
+
+			</tr>
+			<tr>
+				<td align="left" width="50%" valign="top">In Stock:  </td>
+				
+				<td align="left" width="50%" valign="top"><div th:inline="text"> [[${product.quantity}]]</div>  </td>
+
+			</tr>
+			<tr>
+				<td align="left" width="50%" valign="top">Competing offers:  </td>
+				
+				<td align="left" width="50%" valign="top"><div th:inline="text"> [[${product.numberOfBids}]]</div>  </td>
+
+			</tr>
+			<tr>
+				<td align="left" width="50%" valign="top">Enter your offer:  </td>
+				
+				<td align="left" width="50%" valign="top"><input type="text" th:field="*{newAmount}" placeholder="Your Amount" class="form-control input-lg"/> </td>
+
+			</tr>
+			<tr>
+				<td align="left" width="50%" valign="top"> 
+<button type="submit" style="border: none;background-color: #f44336; color: white; padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer" value="Offer"  name="Offer"> Confirm Offer</button> </td>
+				
+				<td align="left" width="50%" valign="top"><button type="submit" style="border: none;background-color: #f44336; color: white; padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer" value="Retract" name="Retract"> Retract Offer</button>  </td>
+
+			</tr>
+		
+	</table> 
+	
+	
+	
+	
+	 <div class="form-group">
+	 <input type="hidden" th:field="*{id}" />
+	 <input type="hidden" th:field="*{bidStart}" />
+	 <input type="hidden" th:field="*{bidEnd}" />
+      
+      
+     </div>
+                
+	
+	<br></br>
+	
+	
+	
+	 <div class="row">
+                        <div class="col-sm-3" style="float: none; margin: 0 auto;">
+                         
+                        </div>
+                    </div>
+	
+	</form> 
+            
+        </div>
+        <br></br>
+  
+
+
+</div>
+
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
